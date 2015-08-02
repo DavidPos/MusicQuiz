@@ -54,7 +54,7 @@ public class ArtistAdapter extends ArrayAdapter<Artist> {
         Log.d("Picture", artist.id);
         Picasso.with(mContext)
                 .load(mImage.url)
-                .resize(50, 50)
+                .resize(150, 150)
                 .into(holder.artistImage);
         holder.albumLabel.setVisibility(View.INVISIBLE);
 
