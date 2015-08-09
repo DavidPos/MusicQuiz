@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">MusicQuiz</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="album_question">Which Album is this track on?</string>
+    <string name="title_activity_result">result</string>
+</resources>
