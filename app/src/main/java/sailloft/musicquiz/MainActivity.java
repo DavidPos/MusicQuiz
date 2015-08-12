@@ -3,8 +3,8 @@ package sailloft.musicquiz;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.graphics.Color;
-import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
@@ -19,7 +19,6 @@ import com.spotify.sdk.android.authentication.AuthenticationClient;
 import com.spotify.sdk.android.authentication.AuthenticationRequest;
 import com.spotify.sdk.android.authentication.AuthenticationResponse;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -92,34 +91,16 @@ public class MainActivity extends ListActivity {
 
                 final SpotifyService spotify = api.getService();
 
-
-                spotify.getPlaylistTracks("1211477835", "4iL2ZX9HMrYs8nQqR4w3Gb", new Callback<Pager<PlaylistTrack>>() {
-                    @Override
-                    public void success(Pager<PlaylistTrack> playlistTrackPager, Response response) {
-
-                        playlistTrack = playlistTrackPager.items.get(2);
-
-                        Log.d("Length of Playlist", playlistTrackPager.total + "");
-
-                        Track track = playlistTrack.track;
+                Artist artist = getArtist(spotify,"12333", "123344");
+                 if (artist == null){
+                     Log.d("artist: ", "is Null!!!");
+                 }
+                else{
+                     Log.d("artist: ", artist.id);
+                 }
 
 
-                        ArtistSimple artist = track.artists.get(0);
-                        spotify.getArtist(artist.id, new Callback<Artist>() {
-                            @Override
-                            public void success(Artist artist, Response response) {
-                                mArtists.add(artist);
-                                correctArtist = artist;
-
-                            }
-
-                            @Override
-                            public void failure(RetrofitError error) {
-
-                            }
-                        });
-
-
+/*
                         spotify.getRelatedArtists(artist.id, new Callback<Artists>() {
 
                             @Override
@@ -183,24 +164,18 @@ public class MainActivity extends ListActivity {
                                 }
 
                             }
-                        });
+                        });*/
 
 
                     }
 
-                    @Override
-                    public void failure(RetrofitError error) {
-                        Log.d("Track failure", error.toString());
 
-                    }
-
-                });
 
             }
 
         }
 
-    }
+
 
 
     @Override
@@ -284,7 +259,9 @@ public class MainActivity extends ListActivity {
 
     }
 
-    private Artist getArtist(final SpotifyService spotify, String ownerId, String playlistId) {
+
+
+    protected Artist getArtist(final SpotifyService spotify, String ownerId, String playlistId) {
 
 
         spotify.getPlaylistTracks("1211477835", "4iL2ZX9HMrYs8nQqR4w3Gb", new Callback<Pager<PlaylistTrack>>() {
@@ -324,11 +301,58 @@ public class MainActivity extends ListActivity {
 
         });
         if (correctArtist == null){
+            Log.e("Error: ", "correctArtist is null");
             return null;
 
         }
         else {
             return correctArtist;
+        }
+    }
+
+    protected void getOtherArtist(SpotifyService spotify, String artistId ){
+        spotify.getRelatedArtists(artistId, new Callback<Artists>() {
+
+            @Override
+            public void success(Artists artists, Response response) {
+                List<Artist> related = artists.artists;
+                Collections.shuffle(related);
+
+                Log.d("Length of Related", related.size() + "");
+                for (int i = 0; i <= 2; i++) {
+                    mArtists.add(related.get(i));
+
+
+                }
+
+                Collections.shuffle(mArtists);
+
+
+
+            }
+
+
+            @Override
+            public void failure(RetrofitError error) {
+                Log.d("Artist failure", error.toString());
+            }
+        });
+    }
+    public class FetchQuestion extends AsyncTask<SpotifyService, Void, Artist>{
+        SpotifyService spotify;
+
+
+        @Override
+        protected Artist doInBackground(SpotifyService... params) {
+            spotify = params[0];
+            return getArtist(params[0],"232","2344");
+
+        }
+
+        @Override
+        protected void onPostExecute(Artist artist) {
+            getOtherArtist(spotify, artist.id);
+            super.onPostExecute(artist);
         }
     }
 }
