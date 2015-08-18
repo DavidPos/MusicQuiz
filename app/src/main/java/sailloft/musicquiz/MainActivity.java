@@ -23,6 +23,7 @@ import com.spotify.sdk.android.authentication.AuthenticationResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
@@ -62,6 +63,7 @@ public class MainActivity extends ListActivity {
     private SpotifyService spotify;
     private int wrongPos = 0;
     private List<PlaylistTrack> listOfTracks;
+    private TextView level;
 
 
     @Override
@@ -73,16 +75,20 @@ public class MainActivity extends ListActivity {
         pointsTotal = (TextView) findViewById(R.id.pointsLabel);
         okButton = (Button)findViewById(R.id.okButton);
         okButton.setVisibility(View.INVISIBLE);
+        level = (TextView)findViewById(R.id.levelLabel);
+        level.setText("Remaining: --");
 
         AuthenticationRequest.Builder builder =
                 new AuthenticationRequest.Builder(CLIENT_ID, AuthenticationResponse.Type.TOKEN, REDIRECT_URI);
         AuthenticationRequest request = builder.build();
         AuthenticationClient.openLoginActivity(this, REQUEST_CODE, request);
+        mArtists.clear();
         mQuestionsAdapter = new ArtistAdapter(MainActivity.this, mArtists);
 
         final ListView listView = getListView();
         listView.setAdapter(mQuestionsAdapter);
         pointsTotal.setText(points + "");
+
         okButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -96,6 +102,9 @@ public class MainActivity extends ListActivity {
                 v.getChildAt(wrongPos).setBackgroundColor(Color.WHITE);
                 int random = (int) (Math.random() * listOfTracks.size());
                 PlaylistTrack nextTrack = listOfTracks.get(random);
+                listOfTracks.remove(random);
+                level.setText("Remaining: " + listOfTracks.size());
+
 
 
                 getArtist(spotify, nextTrack.track);
@@ -134,17 +143,24 @@ public class MainActivity extends ListActivity {
 
 
                         listOfTracks = playTracks.items;
-                        for (int i = 0; i <= listOfTracks.size(); i++){
-                            if (listOfTracks.get(i).track.preview_url == null){
-                                listOfTracks.remove(i);
+                        Log.d("Length of Playlist", listOfTracks.size() + "" );
+                        int sizeOfList = listOfTracks.size();
+
+                        Iterator<PlaylistTrack> iterator = listOfTracks.iterator();
+                        while (iterator.hasNext()){
+                            if (iterator.next().track.preview_url == null){
+                                iterator.remove();
+
                             }
                         }
+
+                        level.setText("Remaining: " + listOfTracks.size());
                         int rnd = (int) (Math.random() * listOfTracks.size());
                         Log.d("Length of Playlist", listOfTracks.size() + "" );
 
 
                         Track track = listOfTracks.get(rnd).track;
-
+                        listOfTracks.remove(rnd);
                         getArtist(spotify, track);
 
 
@@ -245,6 +261,7 @@ public class MainActivity extends ListActivity {
             mPlayer.stop();
             mPlayer.reset();
             mPlayer.release();
+            okButton.setVisibility(View.VISIBLE);
 
 
         }
