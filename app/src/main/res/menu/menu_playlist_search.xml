@@ -1,0 +1,13 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:yourapp="http://schemas.android.com/apk/res-auto"
+    tools:context="sailloft.musicquiz.PlaylistSearch">
+
+        <item android:id="@+id/action_search"
+            android:title="@string/search_hint"
+            android:icon="@mipmap/ic_search_white_24dp"
+            yourapp:showAsAction="ifRoom|collapseActionView"
+            yourapp:actionViewClass="android.support.v7.widget.SearchView" />
+
+</menu>

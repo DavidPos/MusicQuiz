@@ -64,6 +64,8 @@ public class MainActivity extends ListActivity {
     private int wrongPos = 0;
     private List<PlaylistTrack> listOfTracks;
     private TextView level;
+    private String user;
+    private String playlistId;
 
 
     @Override
@@ -77,6 +79,10 @@ public class MainActivity extends ListActivity {
         okButton.setVisibility(View.INVISIBLE);
         level = (TextView)findViewById(R.id.levelLabel);
         level.setText("Remaining: --");
+        Intent intent = getIntent();
+        playlistId = intent.getStringExtra("playlistId");
+        user = intent.getStringExtra("user");
+
 
         AuthenticationRequest.Builder builder =
                 new AuthenticationRequest.Builder(CLIENT_ID, AuthenticationResponse.Type.TOKEN, REDIRECT_URI);
@@ -133,7 +139,7 @@ public class MainActivity extends ListActivity {
                 spotify = api.getService();
 
 
-                spotify.getPlaylistTracks("1211477835", "4iL2ZX9HMrYs8nQqR4w3Gb", new Callback<Pager<PlaylistTrack>>() {
+                spotify.getPlaylistTracks(user, playlistId, new Callback<Pager<PlaylistTrack>>() {
                     @Override
                     public void success(Pager<PlaylistTrack> playlistTrackPager, Response response) {
                         playTracks = playlistTrackPager;
@@ -144,7 +150,7 @@ public class MainActivity extends ListActivity {
 
                         listOfTracks = playTracks.items;
                         Log.d("Length of Playlist", listOfTracks.size() + "" );
-                        int sizeOfList = listOfTracks.size();
+                        
 
                         Iterator<PlaylistTrack> iterator = listOfTracks.iterator();
                         while (iterator.hasNext()){
