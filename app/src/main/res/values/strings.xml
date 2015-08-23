@@ -4,6 +4,7 @@
     <string name="action_settings">Settings</string>
     <string name="album_question">Which Album is this track on?</string>
     <string name="title_activity_result">result</string>
-    <string name="title_activity_playlist_search">PlaylistSearch</string>
+    <string name="title_activity_playlist_search">Search for a playlist</string>
     <string name="search_hint">Search for a playlist</string>
+    <string name="play_again_button_label">Play again</string>
 </resources>

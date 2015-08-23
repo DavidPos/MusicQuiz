@@ -1,7 +1,9 @@
 package sailloft.musicquiz;
 
 import android.app.ListActivity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -21,23 +23,22 @@ import com.spotify.sdk.android.authentication.AuthenticationRequest;
 import com.spotify.sdk.android.authentication.AuthenticationResponse;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import kaaes.spotify.webapi.android.SpotifyApi;
 import kaaes.spotify.webapi.android.SpotifyService;
-import kaaes.spotify.webapi.android.models.Album;
 import kaaes.spotify.webapi.android.models.Artist;
 import kaaes.spotify.webapi.android.models.ArtistSimple;
 import kaaes.spotify.webapi.android.models.Artists;
 import kaaes.spotify.webapi.android.models.Pager;
-import kaaes.spotify.webapi.android.models.Playlist;
 import kaaes.spotify.webapi.android.models.PlaylistTrack;
 import kaaes.spotify.webapi.android.models.Track;
+import kaaes.spotify.webapi.android.models.UserPrivate;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -63,9 +64,13 @@ public class MainActivity extends ListActivity {
     private SpotifyService spotify;
     private int wrongPos = 0;
     private List<PlaylistTrack> listOfTracks;
+    private List<PlaylistTrack> copyOfList;
     private TextView level;
     private String user;
     private String playlistId;
+    private String userName;
+    protected MusicQuizDataSource mDataSource;
+    private String playlistName;
 
 
     @Override
@@ -73,20 +78,25 @@ public class MainActivity extends ListActivity {
         super.onCreate(savedInstanceState);
         points = 0;
         setContentView(R.layout.activity_main);
+        mDataSource = new MusicQuizDataSource(MainActivity.this);
         countDown = (TextView) findViewById(R.id.countdownTimer);
         pointsTotal = (TextView) findViewById(R.id.pointsLabel);
         okButton = (Button)findViewById(R.id.okButton);
         okButton.setVisibility(View.INVISIBLE);
         level = (TextView)findViewById(R.id.levelLabel);
         level.setText("Remaining: --");
+        SharedPreferences pref = this.getSharedPreferences("shrdPref", Context.MODE_PRIVATE);
+        final SharedPreferences.Editor editor = pref.edit();
+
         Intent intent = getIntent();
         playlistId = intent.getStringExtra("playlistId");
         user = intent.getStringExtra("user");
+        playlistName = intent.getStringExtra("playlistName");
 
 
         AuthenticationRequest.Builder builder =
                 new AuthenticationRequest.Builder(CLIENT_ID, AuthenticationResponse.Type.TOKEN, REDIRECT_URI);
-        AuthenticationRequest request = builder.build();
+        final AuthenticationRequest request = builder.build();
         AuthenticationClient.openLoginActivity(this, REQUEST_CODE, request);
         mArtists.clear();
         mQuestionsAdapter = new ArtistAdapter(MainActivity.this, mArtists);
@@ -99,24 +109,47 @@ public class MainActivity extends ListActivity {
             @Override
             public void onClick(View view) {
                 mArtists.clear();
+                if(listOfTracks.size() == 0) {
+                    countDown.setText("00");
+                    countDown.setTextColor(Color.BLACK);
+                    ListView v = getListView();
+                    listView.setEnabled(true);
+                    v.getChildAt(indexOfCorrect).setBackgroundColor(Color.WHITE);
+                    v.getChildAt(wrongPos).setBackgroundColor(Color.WHITE);
+                    ScoreData score = new ScoreData();
+                    score.setScore(points+"");
+                    score.setPlaylistId(playlistId);
+                    score.setUserName(userName);
+                    score.setPlaylistName(playlistName);
+                    mDataSource.insertScore(score);
 
-                countDown.setText("00");
-                countDown.setTextColor(Color.BLACK);
-                ListView v = getListView();
-                listView.setEnabled(true);
-                v.getChildAt(indexOfCorrect).setBackgroundColor(Color.WHITE);
-                v.getChildAt(wrongPos).setBackgroundColor(Color.WHITE);
-                int random = (int) (Math.random() * listOfTracks.size());
-                PlaylistTrack nextTrack = listOfTracks.get(random);
-                listOfTracks.remove(random);
-                level.setText("Remaining: " + listOfTracks.size());
+                    Intent result = new Intent(MainActivity.this, Result.class);
+
+                    startActivity(result);
 
 
+                }
+                else {
+                    countDown.setText("00");
+                    countDown.setTextColor(Color.BLACK);
+                    ListView v = getListView();
+                    listView.setEnabled(true);
+                    v.getChildAt(indexOfCorrect).setBackgroundColor(Color.WHITE);
+                    v.getChildAt(wrongPos).setBackgroundColor(Color.WHITE);
+                    int random = (int) (Math.random() * listOfTracks.size());
+                    PlaylistTrack nextTrack = listOfTracks.get(random);
+                    listOfTracks.remove(random);
+                    level.setText("Remaining: " + listOfTracks.size());
 
-                getArtist(spotify, nextTrack.track);
 
-                okButton.setVisibility(View.INVISIBLE);
+                    getArtist(spotify, nextTrack.track);
+
+                    okButton.setVisibility(View.INVISIBLE);
+
+                }
+
             }
+
         });
 
     }
@@ -137,6 +170,17 @@ public class MainActivity extends ListActivity {
 
 
                 spotify = api.getService();
+                spotify.getMe(new Callback<UserPrivate>() {
+                    @Override
+                    public void success(UserPrivate userPrivate, Response response) {
+                        userName = userPrivate.id;
+                    }
+
+                    @Override
+                    public void failure(RetrofitError error) {
+
+                    }
+                });
 
 
                 spotify.getPlaylistTracks(user, playlistId, new Callback<Pager<PlaylistTrack>>() {
@@ -150,17 +194,23 @@ public class MainActivity extends ListActivity {
 
                         listOfTracks = playTracks.items;
                         Log.d("Length of Playlist", listOfTracks.size() + "" );
-                        
+                        Collections.shuffle(listOfTracks);
+
+
 
                         Iterator<PlaylistTrack> iterator = listOfTracks.iterator();
                         while (iterator.hasNext()){
+
                             if (iterator.next().track.preview_url == null){
                                 iterator.remove();
 
                             }
                         }
+                        copyOfList = listOfTracks.subList(0, 5);
+                        listOfTracks = copyOfList;
 
                         level.setText("Remaining: " + listOfTracks.size());
+
                         int rnd = (int) (Math.random() * listOfTracks.size());
                         Log.d("Length of Playlist", listOfTracks.size() + "" );
 
@@ -186,6 +236,21 @@ public class MainActivity extends ListActivity {
 
         }
 
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        try {
+            mDataSource.open();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mDataSource.close();
     }
 
 
@@ -273,6 +338,7 @@ public class MainActivity extends ListActivity {
         }
 
     }
+
 
     private void getArtist(final SpotifyService spotify, Track track) {
 

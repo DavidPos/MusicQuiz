@@ -1,10 +1,8 @@
 package sailloft.musicquiz;
 
-import android.app.ListActivity;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
@@ -13,17 +11,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 
 import kaaes.spotify.webapi.android.SpotifyApi;
 import kaaes.spotify.webapi.android.SpotifyService;
-import kaaes.spotify.webapi.android.models.Playlist;
 import kaaes.spotify.webapi.android.models.PlaylistSimple;
 import kaaes.spotify.webapi.android.models.PlaylistsPager;
 import retrofit.Callback;
@@ -79,6 +73,7 @@ public class PlaylistSearch extends AppCompatActivity {
                 Intent intent1 = new Intent(PlaylistSearch.this, MainActivity.class);
                 intent1.putExtra("playlistId", playList.get(position).id);
                 intent1.putExtra("user", playList.get(position).owner.id);
+                intent1.putExtra("playlistName", playList.get(position).name);
                 startActivity(intent1);
             }
         });
