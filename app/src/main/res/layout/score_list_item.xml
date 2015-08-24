@@ -19,7 +19,7 @@
             android:paddingTop="@dimen/message_vertical_padding"
 
             android:text="New Text"
-            android:textSize="40sp"
+            android:textSize="30dp"
             android:layout_alignParentTop="true"
             android:textColor="@android:color/black" />
 
@@ -27,7 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/score_label"
-            android:textSize="35sp"
+            android:textSize="25dp"
 
             android:id="@+id/scoreLabel"
             android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -50,11 +50,21 @@
             android:layout_height="wrap_content"
             android:id="@+id/iconPlaylistScore"
             android:paddingRight="@dimen/activity_horizontal_margin"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:src="@drawable/coldplay"
-            />
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Alternative 90&apos;s"
+            android:id="@+id/playlistLabel"
+            android:layout_below="@+id/iconPlaylistScore"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:textSize="15sp" />
     </RelativeLayout>
 
 </LinearLayout>

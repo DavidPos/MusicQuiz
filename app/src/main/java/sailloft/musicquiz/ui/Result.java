@@ -26,6 +26,7 @@ public class Result extends ListActivity {
     private String KEY_NAME = "Name";
     private  String KEY_SCORE = "Score";
     private String KEY_PLAYLISTICON = "PlaylistIcon";
+    private String KEY_PLAYLISTNAME = "PlaylistName";
     private ArrayList<HashMap<String, String>> allScores;
     private Button playAgain;
 
@@ -96,23 +97,26 @@ public class Result extends ListActivity {
 
             int i = scores.getColumnIndex(MusicQuizHelper.COLUMN_NAME);
             int p = scores.getColumnIndex(MusicQuizHelper.COLUMN_PLAYLIST_ICON);
+            int q = scores.getColumnIndex(MusicQuizHelper.COLUMN_PLAYLIST_NAME);
 
             int z = scores.getColumnIndex(MusicQuizHelper.COLUMN_SCORE);
             String name = scores.getString(i);
             String score = scores.getString(z);
             String playListId = scores.getString(p);
+            String playListName = scores.getString(q);
 
 
             HashMap<String, String> highScores = new HashMap<String, String>();
             highScores.put(KEY_NAME, name);
             highScores.put(KEY_SCORE, score);
             highScores.put(KEY_PLAYLISTICON, playListId);
+            highScores.put(KEY_PLAYLISTNAME, playListName);
             allScores.add(highScores);
 
             scores.moveToNext();
         }
 
-        String[] keys = {KEY_NAME, KEY_SCORE, KEY_PLAYLISTICON};
+        String[] keys = {KEY_NAME, KEY_SCORE, KEY_PLAYLISTICON, KEY_PLAYLISTNAME};
         ScoreAdapter adapter = new ScoreAdapter(this, allScores, keys);
         Collections.sort(allScores,new Comparator<HashMap<String, String>>() {
             @Override

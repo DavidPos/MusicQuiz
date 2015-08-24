@@ -43,6 +43,7 @@ public class ScoreAdapter extends ArrayAdapter<HashMap<String, String>>{
             holder.playlistIcon = (ImageView)convertView.findViewById(R.id.iconPlaylistScore);
             holder.userName = (TextView) convertView.findViewById(R.id.userNameLabel);
             holder.score = (TextView) convertView.findViewById(R.id.scoreLabel);
+            holder.playListName = (TextView)convertView.findViewById(R.id.playlistLabel);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -54,6 +55,7 @@ public class ScoreAdapter extends ArrayAdapter<HashMap<String, String>>{
 
         holder.userName.setText(text.get(mKeys[0]));
         holder.score.setText(text.get(mKeys[1]));
+        holder.playListName.setText(text.get(mKeys[3]));
         Picasso.with(mContext)
                 .load(text.get(mKeys[2]))
                 .resize(150, 150)
@@ -68,6 +70,7 @@ public class ScoreAdapter extends ArrayAdapter<HashMap<String, String>>{
             TextView userName;
             TextView score;
             ImageView playlistIcon;
+            TextView playListName;
         }
 
 
