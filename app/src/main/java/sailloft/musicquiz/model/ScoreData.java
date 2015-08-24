@@ -1,4 +1,4 @@
-package sailloft.musicquiz;
+package sailloft.musicquiz.model;
 
 /**
  * Created by davidpos on 8/22/15.

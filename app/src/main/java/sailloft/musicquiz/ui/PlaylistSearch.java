@@ -1,4 +1,4 @@
-package sailloft.musicquiz;
+package sailloft.musicquiz.ui;
 
 import android.app.SearchManager;
 import android.content.Context;
@@ -23,6 +23,8 @@ import kaaes.spotify.webapi.android.models.PlaylistsPager;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
+import sailloft.musicquiz.adapters.PlaylistAdapter;
+import sailloft.musicquiz.R;
 
 public class PlaylistSearch extends AppCompatActivity {
     private String KEY_PLAYLIST_NAME = "name";

@@ -1,4 +1,4 @@
-package sailloft.musicquiz;
+package sailloft.musicquiz.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import kaaes.spotify.webapi.android.models.PlaylistSimple;
+import sailloft.musicquiz.R;
 
 /**
  * Created by davidpos on 8/19/15.

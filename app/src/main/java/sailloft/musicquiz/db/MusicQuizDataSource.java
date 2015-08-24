@@ -1,4 +1,4 @@
-package sailloft.musicquiz;
+package sailloft.musicquiz.db;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import java.sql.SQLException;
+
+import sailloft.musicquiz.model.ScoreData;
 
 /**
  * Created by davidpos on 8/22/15.

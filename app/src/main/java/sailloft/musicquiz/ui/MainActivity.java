@@ -1,9 +1,7 @@
-package sailloft.musicquiz;
+package sailloft.musicquiz.ui;
 
 import android.app.ListActivity;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -42,6 +40,10 @@ import kaaes.spotify.webapi.android.models.UserPrivate;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
+import sailloft.musicquiz.adapters.ArtistAdapter;
+import sailloft.musicquiz.db.MusicQuizDataSource;
+import sailloft.musicquiz.R;
+import sailloft.musicquiz.model.ScoreData;
 
 
 public class MainActivity extends ListActivity {
@@ -86,8 +88,7 @@ public class MainActivity extends ListActivity {
         okButton.setVisibility(View.INVISIBLE);
         level = (TextView)findViewById(R.id.levelLabel);
         level.setText("Remaining: --");
-        SharedPreferences pref = this.getSharedPreferences("shrdPref", Context.MODE_PRIVATE);
-        final SharedPreferences.Editor editor = pref.edit();
+
 
         final Intent intent = getIntent();
         playlistId = intent.getStringExtra("playlistId");

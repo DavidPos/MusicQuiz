@@ -1,4 +1,4 @@
-package sailloft.musicquiz;
+package sailloft.musicquiz.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,6 +12,8 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import sailloft.musicquiz.R;
 
 /**
  * Created by davidpos on 8/22/15.

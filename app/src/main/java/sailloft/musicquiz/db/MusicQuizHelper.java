@@ -1,4 +1,4 @@
-package sailloft.musicquiz;
+package sailloft.musicquiz.db;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

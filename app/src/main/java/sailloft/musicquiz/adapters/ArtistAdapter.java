@@ -1,4 +1,4 @@
-package sailloft.musicquiz;
+package sailloft.musicquiz.adapters;
 
 import android.content.Context;
 import android.util.Log;
@@ -16,6 +16,7 @@ import java.util.List;
 
 import kaaes.spotify.webapi.android.models.Artist;
 import kaaes.spotify.webapi.android.models.Image;
+import sailloft.musicquiz.R;
 
 /**
  * Created by David's Laptop on 8/2/2015.

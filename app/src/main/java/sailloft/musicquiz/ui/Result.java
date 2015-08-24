@@ -1,4 +1,4 @@
-package sailloft.musicquiz;
+package sailloft.musicquiz.ui;
 
 import android.app.ListActivity;
 import android.content.Intent;
@@ -14,6 +14,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+
+import sailloft.musicquiz.db.MusicQuizDataSource;
+import sailloft.musicquiz.db.MusicQuizHelper;
+import sailloft.musicquiz.R;
+import sailloft.musicquiz.adapters.ScoreAdapter;
 
 
 public class Result extends ListActivity {
