@@ -71,6 +71,7 @@ public class MainActivity extends ListActivity {
     private String userName;
     protected MusicQuizDataSource mDataSource;
     private String playlistName;
+    private String playlistIconUrl;
 
 
     @Override
@@ -88,10 +89,11 @@ public class MainActivity extends ListActivity {
         SharedPreferences pref = this.getSharedPreferences("shrdPref", Context.MODE_PRIVATE);
         final SharedPreferences.Editor editor = pref.edit();
 
-        Intent intent = getIntent();
+        final Intent intent = getIntent();
         playlistId = intent.getStringExtra("playlistId");
         user = intent.getStringExtra("user");
         playlistName = intent.getStringExtra("playlistName");
+        playlistIconUrl = intent.getStringExtra("playlistIcon");
 
 
         AuthenticationRequest.Builder builder =
@@ -121,9 +123,11 @@ public class MainActivity extends ListActivity {
                     score.setPlaylistId(playlistId);
                     score.setUserName(userName);
                     score.setPlaylistName(playlistName);
+                    score.setPlayListIcon(playlistIconUrl);
                     mDataSource.insertScore(score);
 
                     Intent result = new Intent(MainActivity.this, Result.class);
+
 
                     startActivity(result);
 
@@ -206,7 +210,7 @@ public class MainActivity extends ListActivity {
 
                             }
                         }
-                        copyOfList = listOfTracks.subList(0, 5);
+                        copyOfList = listOfTracks.subList(0, 15);
                         listOfTracks = copyOfList;
 
                         level.setText("Remaining: " + listOfTracks.size());
@@ -407,7 +411,7 @@ public class MainActivity extends ListActivity {
                         mPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                             @Override
                             public void onPrepared(MediaPlayer mp) {
-                                long time = 10000;
+                                long time = 15000;
 
                                 mp.start();
                                 song = new QuizCountdown(time, 1000);

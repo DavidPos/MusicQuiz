@@ -49,7 +49,7 @@ public class ArtistAdapter extends ArrayAdapter<Artist> {
         holder.artistName.setText(artist.name);
         List<Image> images = artist.images;
 
-        Image mImage = images.get(1);
+        Image mImage = images.get(0);
 
 
         Log.d("Picture", artist.id);

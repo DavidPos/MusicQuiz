@@ -74,6 +74,7 @@ public class PlaylistSearch extends AppCompatActivity {
                 intent1.putExtra("playlistId", playList.get(position).id);
                 intent1.putExtra("user", playList.get(position).owner.id);
                 intent1.putExtra("playlistName", playList.get(position).name);
+                intent1.putExtra("playlistIcon", playList.get(position).images.get(0).url);
                 startActivity(intent1);
             }
         });

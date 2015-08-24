@@ -20,6 +20,7 @@ public class Result extends ListActivity {
     protected MusicQuizDataSource mDataSource;
     private String KEY_NAME = "Name";
     private  String KEY_SCORE = "Score";
+    private String KEY_PLAYLISTICON = "PlaylistIcon";
     private ArrayList<HashMap<String, String>> allScores;
     private Button playAgain;
 
@@ -89,21 +90,24 @@ public class Result extends ListActivity {
         while (!scores.isAfterLast()) {
 
             int i = scores.getColumnIndex(MusicQuizHelper.COLUMN_NAME);
+            int p = scores.getColumnIndex(MusicQuizHelper.COLUMN_PLAYLIST_ICON);
 
             int z = scores.getColumnIndex(MusicQuizHelper.COLUMN_SCORE);
             String name = scores.getString(i);
             String score = scores.getString(z);
+            String playListId = scores.getString(p);
 
 
             HashMap<String, String> highScores = new HashMap<String, String>();
             highScores.put(KEY_NAME, name);
             highScores.put(KEY_SCORE, score);
+            highScores.put(KEY_PLAYLISTICON, playListId);
             allScores.add(highScores);
 
             scores.moveToNext();
         }
 
-        String[] keys = {KEY_NAME, KEY_SCORE};
+        String[] keys = {KEY_NAME, KEY_SCORE, KEY_PLAYLISTICON};
         ScoreAdapter adapter = new ScoreAdapter(this, allScores, keys);
         Collections.sort(allScores,new Comparator<HashMap<String, String>>() {
             @Override

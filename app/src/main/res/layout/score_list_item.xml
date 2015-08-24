@@ -19,24 +19,42 @@
             android:paddingTop="@dimen/message_vertical_padding"
 
             android:text="New Text"
-            android:textSize="50sp"
+            android:textSize="40sp"
             android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
             android:textColor="@android:color/black" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="New Text"
-            android:textSize="50sp"
+            android:text="@string/score_label"
+            android:textSize="35sp"
 
             android:id="@+id/scoreLabel"
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:paddingBottom="@dimen/message_vertical_padding"
             android:layout_alignParentBottom="false"
-            android:layout_alignStart="@+id/userNameLabel"
+
             android:layout_below="@+id/userNameLabel"
-            android:textColor="@android:color/holo_red_dark" />
+            android:textColor="#84bd00"
+            android:layout_alignLeft="@+id/userNameLabel" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/userNameLabel"
+            android:layout_toEndOf="@+id/userNameLabel" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/iconPlaylistScore"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:src="@drawable/coldplay"
+            />
     </RelativeLayout>
 
 </LinearLayout>

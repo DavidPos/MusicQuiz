@@ -8,6 +8,7 @@ public class ScoreData {
     private String score;
     private String playlistId;
     private String playlistName;
+    private String playListIcon;
 
     public String getUserName() {
         return userName;
@@ -41,5 +42,11 @@ public class ScoreData {
         this.playlistName = playlistName;
     }
 
+    public String getPlayListIcon() {
+        return playListIcon;
+    }
 
+    public void setPlayListIcon(String playListIcon) {
+        this.playListIcon = playListIcon;
+    }
 }

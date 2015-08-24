@@ -13,6 +13,8 @@ public class MusicQuizHelper extends SQLiteOpenHelper {
     public static final String COLUMN_NAME = "NAME";
     public static final String COLUMN_PLAYLIST_ID = "PLAYLIST_ID";
     public static final String COLUMN_PLAYLIST_NAME = "PLAYLIST_NAME";
+    public static final String COLUMN_PLAYLIST_ICON = "PLAYLIST_ICON";
+
     public static final String TABLE_SCORES = "SCORES";
 
     private static final String DB_NAME = "musicQuiz.db";
@@ -24,6 +26,7 @@ public class MusicQuizHelper extends SQLiteOpenHelper {
                     COLUMN_NAME + " TEXT, " +
                     COLUMN_PLAYLIST_ID + " TEXT, " +
                     COLUMN_PLAYLIST_NAME + " TEXT, " +
+                    COLUMN_PLAYLIST_ICON + " TEXT, " +
                     COLUMN_SCORE + " TEXT)";
 
     public MusicQuizHelper(Context context) {

@@ -40,6 +40,7 @@ public class MusicQuizDataSource {
             values.put(MusicQuizHelper.COLUMN_SCORE, scoreData.getScore());
             values.put(MusicQuizHelper.COLUMN_PLAYLIST_ID, scoreData.getPlaylistId());
             values.put(MusicQuizHelper.COLUMN_PLAYLIST_NAME, scoreData.getPlaylistName());
+            values.put(MusicQuizHelper.COLUMN_PLAYLIST_ICON, scoreData.getPlayListIcon());
 
 
             mDatabase.insert(MusicQuizHelper.TABLE_SCORES, null, values);
@@ -55,7 +56,8 @@ public class MusicQuizDataSource {
         Cursor cursor = mDatabase.query(
                 MusicQuizHelper.TABLE_SCORES,//table
                 new String[]{MusicQuizHelper.COLUMN_ID, MusicQuizHelper.COLUMN_NAME,
-                        MusicQuizHelper.COLUMN_SCORE, MusicQuizHelper.COLUMN_PLAYLIST_ID, MusicQuizHelper.COLUMN_PLAYLIST_NAME},//column names
+                        MusicQuizHelper.COLUMN_SCORE, MusicQuizHelper.COLUMN_PLAYLIST_ID, MusicQuizHelper.COLUMN_PLAYLIST_NAME,
+                        MusicQuizHelper.COLUMN_PLAYLIST_ICON},//column names
                 null,//where clause
                 null,//where params
                 null,//groupby
@@ -69,7 +71,8 @@ public class MusicQuizDataSource {
         Cursor cursor = mDatabase.query(
                 MusicQuizHelper.TABLE_SCORES,//table
                 new String[]{MusicQuizHelper.COLUMN_ID, MusicQuizHelper.COLUMN_NAME,
-                        MusicQuizHelper.COLUMN_SCORE, MusicQuizHelper.COLUMN_PLAYLIST_ID, MusicQuizHelper.COLUMN_PLAYLIST_NAME},//column names
+                        MusicQuizHelper.COLUMN_SCORE, MusicQuizHelper.COLUMN_PLAYLIST_ID,
+                        MusicQuizHelper.COLUMN_PLAYLIST_NAME, MusicQuizHelper.COLUMN_PLAYLIST_ICON},//column names
                 MusicQuizHelper.COLUMN_PLAYLIST_ID + " = ?",//where clause
                 new String[]{playlist},//where params
                 null,//groupby
@@ -83,7 +86,8 @@ public class MusicQuizDataSource {
         Cursor cursor = mDatabase.query(
                 MusicQuizHelper.TABLE_SCORES,//table
                 new String[]{MusicQuizHelper.COLUMN_ID, MusicQuizHelper.COLUMN_NAME,
-                        MusicQuizHelper.COLUMN_SCORE, MusicQuizHelper.COLUMN_PLAYLIST_ID, MusicQuizHelper.COLUMN_PLAYLIST_NAME},//column names
+                        MusicQuizHelper.COLUMN_SCORE, MusicQuizHelper.COLUMN_PLAYLIST_ID,
+                        MusicQuizHelper.COLUMN_PLAYLIST_NAME, MusicQuizHelper.COLUMN_PLAYLIST_ICON},//column names
                 MusicQuizHelper.COLUMN_NAME + " = ?",//where clause
                 new String[]{user},//where params
                 null,//groupby
