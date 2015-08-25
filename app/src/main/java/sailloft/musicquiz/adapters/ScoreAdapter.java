@@ -40,9 +40,9 @@ public class ScoreAdapter extends ArrayAdapter<HashMap<String, String>>{
         if (convertView == null) {
             convertView = LayoutInflater.from(mContext).inflate(R.layout.score_list_item, null);
             holder = new ViewHolder();
-            holder.playlistIcon = (ImageView)convertView.findViewById(R.id.iconPlaylistScore);
-            holder.userName = (TextView) convertView.findViewById(R.id.userNameLabel);
-            holder.score = (TextView) convertView.findViewById(R.id.scoreLabel);
+            holder.playlistIcon = (ImageView)convertView.findViewById(R.id.pListIconCard);
+            holder.userName = (TextView) convertView.findViewById(R.id.userLabelCard);
+            holder.score = (TextView) convertView.findViewById(R.id.scoreTextCard);
             holder.playListName = (TextView)convertView.findViewById(R.id.playlistLabel);
             convertView.setTag(holder);
         } else {

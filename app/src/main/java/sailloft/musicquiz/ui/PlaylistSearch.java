@@ -23,13 +23,14 @@ import kaaes.spotify.webapi.android.models.PlaylistsPager;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
-import sailloft.musicquiz.adapters.PlaylistAdapter;
 import sailloft.musicquiz.R;
+import sailloft.musicquiz.adapters.PlaylistAdapter;
 
 public class PlaylistSearch extends AppCompatActivity {
     private String KEY_PLAYLIST_NAME = "name";
     private ListView listview;
     private ArrayList<PlaylistSimple> playList = new ArrayList<>();
+
 
 
 

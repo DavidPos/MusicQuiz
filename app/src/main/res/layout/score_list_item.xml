@@ -14,7 +14,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:id="@+id/userNameLabel"
+            android:id="@+id/userLabelCard"
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:paddingTop="@dimen/message_vertical_padding"
 
@@ -29,26 +29,19 @@
             android:text="@string/score_label"
             android:textSize="25dp"
 
-            android:id="@+id/scoreLabel"
+            android:id="@+id/scoreTextCard"
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:paddingBottom="@dimen/message_vertical_padding"
             android:layout_alignParentBottom="false"
 
-            android:layout_below="@+id/userNameLabel"
+            android:layout_below="@+id/userLabelCard"
             android:textColor="#84bd00"
-            android:layout_alignLeft="@+id/userNameLabel" />
+            android:layout_alignLeft="@+id/userLabelCard" />
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/imageView"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/userNameLabel"
-            android:layout_toEndOf="@+id/userNameLabel" />
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/iconPlaylistScore"
+            android:id="@+id/pListIconCard"
             android:paddingRight="@dimen/activity_horizontal_margin"
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:src="@drawable/coldplay"
@@ -61,7 +54,7 @@
             android:layout_height="wrap_content"
             android:text="Alternative 90&apos;s"
             android:id="@+id/playlistLabel"
-            android:layout_below="@+id/iconPlaylistScore"
+            android:layout_below="@+id/pListIconCard"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
             android:textSize="15sp" />

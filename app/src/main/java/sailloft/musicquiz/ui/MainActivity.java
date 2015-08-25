@@ -7,12 +7,12 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.support.design.widget.FloatingActionButton;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -40,9 +40,9 @@ import kaaes.spotify.webapi.android.models.UserPrivate;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
+import sailloft.musicquiz.R;
 import sailloft.musicquiz.adapters.ArtistAdapter;
 import sailloft.musicquiz.db.MusicQuizDataSource;
-import sailloft.musicquiz.R;
 import sailloft.musicquiz.model.ScoreData;
 
 
@@ -62,7 +62,7 @@ public class MainActivity extends ListActivity {
     private int timeRemaining;
     private int indexOfCorrect;
     private Pager<PlaylistTrack> playTracks;
-    private Button okButton;
+    private FloatingActionButton okButton;
     private SpotifyService spotify;
     private int wrongPos = 0;
     private List<PlaylistTrack> listOfTracks;
@@ -84,7 +84,7 @@ public class MainActivity extends ListActivity {
         mDataSource = new MusicQuizDataSource(MainActivity.this);
         countDown = (TextView) findViewById(R.id.countdownTimer);
         pointsTotal = (TextView) findViewById(R.id.pointsLabel);
-        okButton = (Button)findViewById(R.id.okButton);
+        okButton = (FloatingActionButton)findViewById(R.id.fabNext);
         okButton.setVisibility(View.INVISIBLE);
         level = (TextView)findViewById(R.id.levelLabel);
         level.setText("Remaining: --");

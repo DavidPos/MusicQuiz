@@ -8,4 +8,5 @@
     <string name="search_hint">Search for a playlist</string>
     <string name="play_again_button_label">Play again</string>
     <string name="score_label">New Text</string>
+    <string name="title_activity_splash_page">SplashPage</string>
 </resources>

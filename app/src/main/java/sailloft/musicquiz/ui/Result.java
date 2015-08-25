@@ -4,10 +4,10 @@ import android.app.ListActivity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -15,10 +15,10 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 
-import sailloft.musicquiz.db.MusicQuizDataSource;
-import sailloft.musicquiz.db.MusicQuizHelper;
 import sailloft.musicquiz.R;
 import sailloft.musicquiz.adapters.ScoreAdapter;
+import sailloft.musicquiz.db.MusicQuizDataSource;
+import sailloft.musicquiz.db.MusicQuizHelper;
 
 
 public class Result extends ListActivity {
@@ -28,7 +28,7 @@ public class Result extends ListActivity {
     private String KEY_PLAYLISTICON = "PlaylistIcon";
     private String KEY_PLAYLISTNAME = "PlaylistName";
     private ArrayList<HashMap<String, String>> allScores;
-    private Button playAgain;
+    private FloatingActionButton playAgain;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +36,7 @@ public class Result extends ListActivity {
         setContentView(R.layout.activity_result);
         mDataSource = new MusicQuizDataSource(this);
         allScores = new ArrayList<>();
-        playAgain = (Button)findViewById(R.id.finishButton);
+        playAgain = (FloatingActionButton)findViewById(R.id.fabAgain);
 
 
 
