@@ -53,7 +53,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="What is the name of the band playing?"
+        android:text="What is the name of the Artist playing?"
         android:id="@+id/questionLabel"
         android:layout_below="@+id/countdownTimer"
         android:layout_centerHorizontal="true"
