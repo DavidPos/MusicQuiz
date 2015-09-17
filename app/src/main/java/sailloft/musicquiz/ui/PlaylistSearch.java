@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -30,6 +31,7 @@ public class PlaylistSearch extends AppCompatActivity {
     private String KEY_PLAYLIST_NAME = "name";
     private ListView listview;
     private ArrayList<PlaylistSimple> playList = new ArrayList<>();
+    private TextView emptyString;
 
 
 
@@ -40,11 +42,14 @@ public class PlaylistSearch extends AppCompatActivity {
         setContentView(R.layout.activity_playlist_search);
         final PlaylistAdapter adapter = new PlaylistAdapter(PlaylistSearch.this, playList);
         listview = (ListView)findViewById(R.id.listView);
+        emptyString = (TextView)findViewById(R.id.empty);
+        listview.setEmptyView(emptyString);
 
 
 
         Intent intent = getIntent();
         if (Intent.ACTION_SEARCH.equals(intent.getAction())){
+            emptyString.setVisibility(View.INVISIBLE);
             String query = intent.getStringExtra(SearchManager.QUERY);
             SpotifyApi api = new SpotifyApi();
             SpotifyService spotify = api.getService();
