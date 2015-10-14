@@ -26,5 +26,6 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         app:layout_anchorGravity="bottom|right|end"
-        android:color="#84bd00" />
+        android:color="#84bd00"
+        android:layout_alignParentStart="false" />
 </RelativeLayout>
