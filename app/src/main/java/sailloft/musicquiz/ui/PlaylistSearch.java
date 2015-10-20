@@ -100,7 +100,7 @@ public class PlaylistSearch extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_playlist_search, menu);
         // Get the SearchView and set the searchable configuration
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
+        final SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
         searchView.hasFocus();
         final CursorAdapter suggestionAdapter = new SimpleCursorAdapter(this,
                 android.R.layout.simple_list_item_1,
@@ -111,6 +111,21 @@ public class PlaylistSearch extends AppCompatActivity {
         final List<String> suggestions = new ArrayList<>();
 
         searchView.setSuggestionsAdapter(suggestionAdapter);
+        searchView.setOnSuggestionListener(new SearchView.OnSuggestionListener() {
+            @Override
+            public boolean onSuggestionSelect(int position) {
+                return false;
+            }
+
+            @Override
+            public boolean onSuggestionClick(int position) {
+                searchView.setQuery(suggestions.get(position), false);
+                searchView.clearFocus();
+
+
+                return true;
+            }
+        });
 
        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
            @Override
