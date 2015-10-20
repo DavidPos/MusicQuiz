@@ -3,7 +3,11 @@ package sailloft.musicquiz.ui;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.database.MatrixCursor;
 import android.os.Bundle;
+import android.provider.BaseColumns;
+import android.support.v4.widget.CursorAdapter;
+import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.util.Log;
@@ -13,9 +17,11 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import kaaes.spotify.webapi.android.SpotifyApi;
 import kaaes.spotify.webapi.android.SpotifyService;
@@ -95,6 +101,66 @@ public class PlaylistSearch extends AppCompatActivity {
         // Get the SearchView and set the searchable configuration
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
+        searchView.hasFocus();
+        final CursorAdapter suggestionAdapter = new SimpleCursorAdapter(this,
+                android.R.layout.simple_list_item_1,
+                null,
+                new String[]{SearchManager.SUGGEST_COLUMN_TEXT_1},
+                new int[]{android.R.id.text1},
+                0);
+        final List<String> suggestions = new ArrayList<>();
+
+        searchView.setSuggestionsAdapter(suggestionAdapter);
+
+       searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+           @Override
+           public boolean onQueryTextSubmit(String query) {
+               return false;
+           }
+
+           @Override
+           public boolean onQueryTextChange(String newText) {
+                suggestions.clear();
+               SpotifyApi api = new SpotifyApi();
+               SpotifyService spotify = api.getService();
+               spotify.searchPlaylists(newText, new Callback<PlaylistsPager>() {
+                   @Override
+                   public void success(PlaylistsPager playlistsPager, Response response) {
+                       Log.i("Playlist : Items :", playlistsPager.playlists.items +"");
+                       Iterator<PlaylistSimple> iterator = playlistsPager.playlists.items.iterator();
+                       while (iterator.hasNext()) {
+                           suggestions.add(iterator.next().name);
+
+
+                       }
+                       String[] columns = {
+                               BaseColumns._ID,
+                               SearchManager.SUGGEST_COLUMN_TEXT_1,
+                               SearchManager.SUGGEST_COLUMN_INTENT_DATA
+                       };
+
+                       MatrixCursor cursor = new MatrixCursor(columns);
+
+                       for (int i = 0; i < suggestions.size(); i++) {
+                           String[] tmp = {Integer.toString(i), suggestions.get(i), suggestions.get(i)};
+                           cursor.addRow(tmp);
+                       }
+                       suggestionAdapter.swapCursor(cursor);
+
+
+
+
+
+                   }
+
+                   @Override
+                   public void failure(RetrofitError error) {
+                       Toast.makeText(PlaylistSearch.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+                   }
+               });
+               return false;
+           }
+       });
         // Assumes current activity is the searchable activity
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
         searchView.setIconifiedByDefault(false); // Do not iconify the widget; expand it by default

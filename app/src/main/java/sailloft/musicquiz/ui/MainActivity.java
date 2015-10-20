@@ -16,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.newrelic.agent.android.NewRelic;
 import com.spotify.sdk.android.authentication.AuthenticationClient;
 import com.spotify.sdk.android.authentication.AuthenticationRequest;
 import com.spotify.sdk.android.authentication.AuthenticationResponse;
@@ -76,6 +77,8 @@ public class MainActivity extends ListActivity {
     private String playlistIconUrl;
 
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,6 +91,10 @@ public class MainActivity extends ListActivity {
         okButton.setVisibility(View.INVISIBLE);
         level = (TextView)findViewById(R.id.levelLabel);
         level.setText("Remaining: --");
+        NewRelic.withApplicationToken(
+
+                "AA6b90f7803532086a3142855dff603499233bb155"
+        ).start(this.getApplication());
 
 
         final Intent intent = getIntent();

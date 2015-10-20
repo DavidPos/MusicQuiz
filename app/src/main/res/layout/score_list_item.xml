@@ -57,7 +57,10 @@
             android:layout_below="@+id/pListIconCard"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
-            android:textSize="15sp" />
+            android:textSize="15sp"
+            android:textAlignment="center"
+            android:maxLines="1"
+            android:maxWidth="150dp" />
     </RelativeLayout>
 
 </LinearLayout>
