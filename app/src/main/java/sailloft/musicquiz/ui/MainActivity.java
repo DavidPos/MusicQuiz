@@ -178,10 +178,12 @@ public class MainActivity extends ListActivity {
                 SpotifyApi api = new SpotifyApi();
                 api.setAccessToken(response.getAccessToken());
 
-                Log.d("Token expires in: ", "" + response.getExpiresIn() + response.getCode());
+
+                Log.d("Token expires in: ", "" + response.getExpiresIn() + response.getState());
 
 
                 spotify = api.getService();
+
                 spotify.getMe(new Callback<UserPrivate>() {
                     @Override
                     public void success(UserPrivate userPrivate, Response response) {
