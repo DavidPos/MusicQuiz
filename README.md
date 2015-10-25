@@ -1,5 +1,6 @@
-# MusicQuiz
-##Music Quiz using Spotify API
+# MusicQuiz   
+##Music Quiz using Spotify API            [![Build Status](https://travis-ci.org/DavidPos/MusicQuiz.svg)](https://travis-ci.org/DavidPos/MusicQuiz)
+
 
 Music quiz that plays a song and you have to guess who it is. Uses the Spotify API for all the information.
 [![Home Screen](https://github.com/DavidPos/MusicQuiz/blob/master/ScreenShots/Screenshot_2015-08-18-17-51-37.jpg)]()
