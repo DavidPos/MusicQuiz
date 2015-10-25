@@ -75,6 +75,7 @@ public class MainActivity extends ListActivity {
     protected MusicQuizDataSource mDataSource;
     private String playlistName;
     private String playlistIconUrl;
+    private SpotifyApi api;
 
 
 
@@ -104,10 +105,19 @@ public class MainActivity extends ListActivity {
         playlistIconUrl = intent.getStringExtra("playlistIcon");
 
 
-        AuthenticationRequest.Builder builder =
-                new AuthenticationRequest.Builder(CLIENT_ID, AuthenticationResponse.Type.TOKEN, REDIRECT_URI);
-        final AuthenticationRequest request = builder.build();
-        AuthenticationClient.openLoginActivity(this, REQUEST_CODE, request);
+
+        try {
+            
+            getQuestion(spotify);
+        }catch (NullPointerException n){
+            AuthenticationRequest.Builder builder =
+                    new AuthenticationRequest.Builder(CLIENT_ID, AuthenticationResponse.Type.TOKEN, REDIRECT_URI);
+            final AuthenticationRequest request = builder.build();
+            AuthenticationClient.openLoginActivity(this, REQUEST_CODE, request);
+
+        }
+
+
         mArtists.clear();
         mQuestionsAdapter = new ArtistAdapter(MainActivity.this, mArtists);
 
@@ -175,81 +185,87 @@ public class MainActivity extends ListActivity {
             AuthenticationResponse response = AuthenticationClient.getResponse(resultCode, intent);
             if (response.getType() == AuthenticationResponse.Type.TOKEN) {
 
-                SpotifyApi api = new SpotifyApi();
+                api = new SpotifyApi();
                 api.setAccessToken(response.getAccessToken());
+
 
 
                 Log.d("Token expires in: ", "" + response.getExpiresIn() + response.getState());
 
 
                 spotify = api.getService();
-
-                spotify.getMe(new Callback<UserPrivate>() {
-                    @Override
-                    public void success(UserPrivate userPrivate, Response response) {
-                        userName = userPrivate.id;
-                    }
-
-                    @Override
-                    public void failure(RetrofitError error) {
-
-                    }
-                });
+                getQuestion(spotify);
 
 
-                spotify.getPlaylistTracks(user, playlistId, new Callback<Pager<PlaylistTrack>>() {
-                    @Override
-                    public void success(Pager<PlaylistTrack> playlistTrackPager, Response response) {
-                        playTracks = playlistTrackPager;
-
-
-                        playlistTrack = playlistTrackPager.items.get(5);
-
-
-                        listOfTracks = playTracks.items;
-                        Log.d("Length of Playlist", listOfTracks.size() + "" );
-                        Collections.shuffle(listOfTracks);
-
-
-
-                        Iterator<PlaylistTrack> iterator = listOfTracks.iterator();
-                        while (iterator.hasNext()){
-
-                            if (iterator.next().track.preview_url == null){
-                                iterator.remove();
-
-                            }
-                        }
-                        copyOfList = listOfTracks.subList(0, 15);
-                        listOfTracks = copyOfList;
-
-                        level.setText("Remaining: " + listOfTracks.size());
-
-                        int rnd = (int) (Math.random() * listOfTracks.size());
-                        Log.d("Length of Playlist", listOfTracks.size() + "" );
-
-
-                        Track track = listOfTracks.get(rnd).track;
-                        listOfTracks.remove(rnd);
-                        getArtist(spotify, track);
-
-
-
-                    }
-
-                    @Override
-                    public void failure(RetrofitError error) {
-                        Log.d("Track failure", error.toString());
-
-                    }
-
-                });
 
 
             }
 
         }
 
+    }
+
+    private void getQuestion(SpotifyService spotifyService){
+        spotifyService.getMe(new Callback<UserPrivate>() {
+            @Override
+            public void success(UserPrivate userPrivate, Response response) {
+                userName = userPrivate.id;
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+
+            }
+        });
+
+
+        spotifyService.getPlaylistTracks(user, playlistId, new Callback<Pager<PlaylistTrack>>() {
+            @Override
+            public void success(Pager<PlaylistTrack> playlistTrackPager, Response response) {
+                playTracks = playlistTrackPager;
+
+
+                playlistTrack = playlistTrackPager.items.get(5);
+
+
+                listOfTracks = playTracks.items;
+                Log.d("Length of Playlist", listOfTracks.size() + "" );
+                Collections.shuffle(listOfTracks);
+
+
+
+                Iterator<PlaylistTrack> iterator = listOfTracks.iterator();
+                while (iterator.hasNext()){
+
+                    if (iterator.next().track.preview_url == null){
+                        iterator.remove();
+
+                    }
+                }
+                copyOfList = listOfTracks.subList(0, 15);
+                listOfTracks = copyOfList;
+
+                level.setText("Remaining: " + listOfTracks.size());
+
+                int rnd = (int) (Math.random() * listOfTracks.size());
+                Log.d("Length of Playlist", listOfTracks.size() + "" );
+
+
+                Track track = listOfTracks.get(rnd).track;
+                listOfTracks.remove(rnd);
+                getArtist(spotify, track);
+
+
+
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Log.d("Track failure", error.toString());
+
+            }
+
+        });
     }
     @Override
     protected void onResume() {
