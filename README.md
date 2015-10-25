@@ -9,6 +9,10 @@ Music quiz that plays a song and you have to guess who it is. Uses the Spotify A
 Add active search for suggesting playlist as you type in search box.
 Cursor adapter for active search to show playlist cover.
 
+#Issues Resolved
+Wanted to persist the authentication session to stop the need to login/approve access when you start another quiz. Due to the fact the spotifiy Android API uses an implicit grant flow for authentication this was not possible. 
+The issues is well explained here: https://github.com/spotify/android-sdk/issues/5
+
 #Copyright
 Copyright [2015] [David Postlethwaite]
 
