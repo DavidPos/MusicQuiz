@@ -293,6 +293,7 @@ public class MainActivity extends ListActivity {
 
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
+        //on item click check to see if answer is correct. Stop playing song .
         super.onListItemClick(l, v, position, id);
         mPlayer.stop();
         mPlayer.reset();
@@ -338,6 +339,7 @@ public class MainActivity extends ListActivity {
 
         @Override
         public void onFinish() {
+            //Timer finishes reveal correct answer and stop playing song
             countDown.setText("00");
             ListView l = getListView();
             View correct = l.getChildAt(indexOfCorrect);

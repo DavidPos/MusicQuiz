@@ -3,7 +3,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:paddingTop="5dp"
-                android:paddingBottom="5dp">
+                android:paddingBottom="5dp"
+    android:background="@android:color/background_dark">
 
     <ImageView
         android:layout_width="wrap_content"
@@ -26,7 +27,8 @@
         android:layout_toRightOf="@+id/artistImageView"
         android:layout_toEndOf="@+id/artistImageView"
         android:paddingLeft="10dp"
-        android:paddingTop="10dp"/>
+        android:paddingTop="10dp"
+        android:textColor="@android:color/white" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -37,5 +39,6 @@
         android:layout_toRightOf="@+id/artistImageView"
         android:layout_toEndOf="@+id/artistImageView"
         android:paddingLeft="10dp"
-        android:paddingTop="2dp"/>
+        android:paddingTop="2dp"
+        android:textColor="@android:color/white" />
 </RelativeLayout>
