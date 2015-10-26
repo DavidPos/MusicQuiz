@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.newrelic.agent.android.NewRelic;
@@ -75,6 +76,7 @@ public class MainActivity extends ListActivity {
     protected MusicQuizDataSource mDataSource;
     private String playlistName;
     private String playlistIconUrl;
+    private ProgressBar progressBar;
 
 
 
@@ -88,6 +90,7 @@ public class MainActivity extends ListActivity {
         countDown = (TextView) findViewById(R.id.countdownTimer);
         pointsTotal = (TextView) findViewById(R.id.pointsLabel);
         okButton = (FloatingActionButton)findViewById(R.id.fabNext);
+        progressBar =(ProgressBar)findViewById(R.id.progressBar);
         okButton.setVisibility(View.INVISIBLE);
         level = (TextView)findViewById(R.id.levelLabel);
         level.setText("Remaining: --");
@@ -95,7 +98,7 @@ public class MainActivity extends ListActivity {
 
                 "AA6b90f7803532086a3142855dff603499233bb155"
         ).start(this.getApplication());
-
+        
 
         final Intent intent = getIntent();
         playlistId = intent.getStringExtra("playlistId");
@@ -174,12 +177,12 @@ public class MainActivity extends ListActivity {
         if (requestCode == REQUEST_CODE) {
             AuthenticationResponse response = AuthenticationClient.getResponse(resultCode, intent);
             if (response.getType() == AuthenticationResponse.Type.TOKEN) {
-
+                progressBar.setVisibility(View.VISIBLE);
                 SpotifyApi api = new SpotifyApi();
                 api.setAccessToken(response.getAccessToken());
 
 
-                Log.d("Token expires in: ", "" + response.getExpiresIn() + response.getState());
+
 
 
                 spotify = api.getService();
@@ -423,6 +426,7 @@ public class MainActivity extends ListActivity {
                         mPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                             @Override
                             public void onPrepared(MediaPlayer mp) {
+                                progressBar.setVisibility(View.INVISIBLE);
                                 long time = 15000;
 
                                 mp.start();

@@ -25,7 +25,7 @@
         android:id="@+id/empty"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
-        android:textColor="@android:color/black"/>
+        android:textColor="@android:color/white"/>
 
 
 
