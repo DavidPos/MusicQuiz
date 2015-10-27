@@ -11,7 +11,7 @@ Cursor adapter for active search to show playlist cover.
 
 #Issues Resolved
 Wanted to persist the authentication session to stop the need to login/approve access when you start another quiz. Due to the fact the spotifiy Android API uses an implicit grant flow for authentication this was not possible. 
-The issues is well explained here: https://github.com/spotify/android-sdk/issues/5
+The issue is well explained here: https://github.com/spotify/android-sdk/issues/5
 
 #Copyright
 Copyright [2015] [David Postlethwaite]
