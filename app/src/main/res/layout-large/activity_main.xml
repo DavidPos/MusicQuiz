@@ -17,7 +17,7 @@
         android:layout_below="@+id/questionLabel"
         android:layout_alignParentLeft="false"
         android:layout_alignParentStart="true"
-        android:paddingTop="30dp"
+        android:paddingTop="60dp"
         android:textAlignment="center"
         android:dividerHeight="10sp"
         android:divider="@android:color/transparent"/>
@@ -30,7 +30,8 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:textSize="20sp"/>
+        android:textSize="20sp"
+        android:textColor="@android:color/white" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -40,7 +41,8 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:textSize="20sp"/>
+        android:textSize="20sp"
+        android:textColor="@android:color/white" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -49,7 +51,8 @@
         android:id="@+id/countdownTimer"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/pointsLabel"
-        android:textSize="50sp"/>
+        android:textSize="50sp"
+        android:textColor="@android:color/white" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -58,7 +61,8 @@
         android:id="@+id/questionLabel"
         android:layout_below="@+id/countdownTimer"
         android:layout_centerHorizontal="true"
-        android:textSize="15sp"/>
+        android:textSize="15sp"
+        android:textColor="@android:color/white" />
 
 
 
