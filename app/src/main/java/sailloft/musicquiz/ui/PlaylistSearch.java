@@ -3,21 +3,17 @@ package sailloft.musicquiz.ui;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
-import android.database.MatrixCursor;
 import android.os.Bundle;
-import android.provider.BaseColumns;
 import android.support.v4.widget.CursorAdapter;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -53,6 +49,7 @@ public class PlaylistSearch extends AppCompatActivity {
 
 
 
+
         Intent intent = getIntent();
         if (Intent.ACTION_SEARCH.equals(intent.getAction())){
             emptyString.setVisibility(View.INVISIBLE);
@@ -83,7 +80,7 @@ public class PlaylistSearch extends AppCompatActivity {
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                Log.d("playlist selected is", playList.get(position).id + playList.get(position).name);
+
                 Intent intent1 = new Intent(PlaylistSearch.this, MainActivity.class);
                 intent1.putExtra("playlistId", playList.get(position).id);
                 intent1.putExtra("user", playList.get(position).owner.id);
@@ -109,6 +106,7 @@ public class PlaylistSearch extends AppCompatActivity {
                 new int[]{android.R.id.text1},
                 0);
         final List<String> suggestions = new ArrayList<>();
+        searchView.requestFocus();
 
         searchView.setSuggestionsAdapter(suggestionAdapter);
         searchView.setOnSuggestionListener(new SearchView.OnSuggestionListener() {
@@ -127,10 +125,10 @@ public class PlaylistSearch extends AppCompatActivity {
             }
         });
 
-       searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+       /*searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
            @Override
            public boolean onQueryTextSubmit(String query) {
-               return false;
+
            }
 
            @Override
@@ -175,7 +173,7 @@ public class PlaylistSearch extends AppCompatActivity {
                });
                return false;
            }
-       });
+       });*/
         // Assumes current activity is the searchable activity
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
         searchView.setIconifiedByDefault(false); // Do not iconify the widget; expand it by default

@@ -211,7 +211,7 @@ public class MainActivity extends ListActivity {
 
 
                         listOfTracks = playTracks.items;
-                        Log.d("Length of Playlist", listOfTracks.size() + "" );
+
                         Collections.shuffle(listOfTracks);
 
 
@@ -230,7 +230,7 @@ public class MainActivity extends ListActivity {
                         level.setText("Remaining: " + listOfTracks.size());
 
                         int rnd = (int) (Math.random() * listOfTracks.size());
-                        Log.d("Length of Playlist", listOfTracks.size() + "" );
+
 
 
                         Track track = listOfTracks.get(rnd).track;
@@ -364,7 +364,7 @@ public class MainActivity extends ListActivity {
 
         final Track mTrack = track;
 
-        Log.d("Artist", mTrack.artists.get(0).name + "" + mTrack.preview_url);
+
 
 
 
@@ -383,9 +383,7 @@ public class MainActivity extends ListActivity {
                             public void success(Artists artists, Response response) {
                                 List<Artist> related = artists.artists;
                                 Collections.shuffle(related);
-                                Log.d("Response", response.getReason() + " " + response.getUrl());
 
-                                Log.d("Length of Related", related.size() + "");
                                 for (int i = 0; i <= 2; i++) {
                                     mArtists.add(related.get(i));
 
@@ -436,7 +434,7 @@ public class MainActivity extends ListActivity {
                                 if (mp.isPlaying()) {
 
                                     song.start();
-                                    Log.d("Media Player", "Media player is playing");
+
                                 } else {
                                     Log.d("Error", "Media Player is not playing");
                                 }

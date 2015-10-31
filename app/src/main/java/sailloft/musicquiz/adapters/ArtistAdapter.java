@@ -1,7 +1,6 @@
 package sailloft.musicquiz.adapters;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,7 +52,7 @@ public class ArtistAdapter extends ArrayAdapter<Artist> {
         Image mImage = images.get(0);
 
 
-        Log.d("Picture", artist.id);
+
         Picasso.with(mContext)
                 .load(mImage.url)
                 .resize(150, 150)
