@@ -123,8 +123,8 @@ public class MainActivity extends ListActivity {
             public void onClick(View view) {
                 mArtists.clear();
                 if(listOfTracks.size() == 0) {
-                    countDown.setText("00");
-                    countDown.setTextColor(Color.BLACK);
+                    countDown.setText("--");
+                    countDown.setTextColor(Color.WHITE);
                     ListView v = getListView();
                     listView.setEnabled(true);
                     v.getChildAt(indexOfCorrect).setBackgroundColor(Color.WHITE);
@@ -145,8 +145,8 @@ public class MainActivity extends ListActivity {
 
                 }
                 else {
-                    countDown.setText("00");
-                    countDown.setTextColor(Color.BLACK);
+                    countDown.setText("--");
+                    countDown.setTextColor(Color.WHITE);
                     ListView v = getListView();
                     listView.setEnabled(true);
                     v.getChildAt(indexOfCorrect).setBackgroundColor(Color.WHITE);
@@ -344,7 +344,7 @@ public class MainActivity extends ListActivity {
         @Override
         public void onFinish() {
             //Timer finishes reveal correct answer and stop playing song
-            countDown.setText("00");
+            countDown.setText("--");
             ListView l = getListView();
             View correct = l.getChildAt(indexOfCorrect);
             correct.setBackgroundColor(Color.GREEN);
