@@ -3,7 +3,7 @@
 
 
 Music quiz that plays a song and you have to guess who it is. Uses the Spotify API for all the information.
-[![Home Screen](https://github.com/DavidPos/MusicQuiz/blob/master/ScreenShots/Screenshot_2015-08-18-17-51-37.jpg)]()
+[![Home Screen](https://github.com/DavidPos/MusicQuiz/blob/master/ScreenShots/Screenshot_2015-11-05-15-12-12.jpg)]()
 
 #BackLog
 Add active search for suggesting playlist as you type in search box.
