@@ -11,7 +11,6 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import kaaes.spotify.webapi.android.models.Artist;
 import kaaes.spotify.webapi.android.models.Image;
@@ -47,9 +46,9 @@ public class ArtistAdapter extends ArrayAdapter<Artist> {
 
         Artist artist = mArtists.get(position);
         holder.artistName.setText(artist.name);
-        List<Image> images = artist.images;
 
-        Image mImage = images.get(0);
+
+        Image mImage = artist.images.get(0);
 
 
 

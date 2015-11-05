@@ -75,6 +75,7 @@ public class MainActivity extends ListActivity {
     protected MusicQuizDataSource mDataSource;
     private String playlistName;
     private String playlistIconUrl;
+    private boolean isClicked;
 
 
 
@@ -85,6 +86,7 @@ public class MainActivity extends ListActivity {
         super.onCreate(savedInstanceState);
 
         points = 0;
+        isClicked = false;
         setContentView(R.layout.activity_main);
         mDataSource = new MusicQuizDataSource(MainActivity.this);
         countDown = (TextView) findViewById(R.id.countdownTimer);
@@ -160,6 +162,7 @@ public class MainActivity extends ListActivity {
                     getArtist(spotify, nextTrack.track);
 
                     okButton.setVisibility(View.INVISIBLE);
+                    isClicked = false;
 
                 }
 
@@ -299,33 +302,36 @@ public class MainActivity extends ListActivity {
     protected void onListItemClick(ListView l, View v, int position, long id) {
         //on item click check to see if answer is correct. Stop playing song .
         super.onListItemClick(l, v, position, id);
-        mPlayer.stop();
-        mPlayer.reset();
-        mPlayer.release();
-        song.cancel();
-        okButton.setVisibility(View.VISIBLE);
+        if (!isClicked) {
+            isClicked = true;
+            mPlayer.stop();
+            mPlayer.reset();
+            mPlayer.release();
+            song.cancel();
+            okButton.setVisibility(View.VISIBLE);
 
 
-        Artist selectedArtist = mArtists.get(position);
-        if (selectedArtist == correctArtist) {
-            countDown.setTextColor(Color.GREEN);
-            countDown.setText("Correct!!!");
-            v.setBackgroundColor(Color.GREEN);
+            Artist selectedArtist = mArtists.get(position);
+            if (selectedArtist == correctArtist) {
+                countDown.setTextColor(Color.GREEN);
+                countDown.setText("Correct!!!");
+                v.setBackgroundColor(Color.GREEN);
 
-            points = points + timeRemaining;
-            pointsTotal.setText(points + "");
-
-
-        } else {
-            countDown.setTextColor(Color.RED);
-            countDown.setText("Wrong");
-             wrongPos = position;
-            View correctAnswer = l.getChildAt(indexOfCorrect);
-
-            correctAnswer.setBackgroundColor(Color.GREEN);
-            v.setBackgroundColor(Color.RED);
+                points = points + timeRemaining;
+                pointsTotal.setText(points + "");
 
 
+            } else {
+                countDown.setTextColor(Color.RED);
+                countDown.setText("Wrong");
+                wrongPos = position;
+                View correctAnswer = l.getChildAt(indexOfCorrect);
+
+                correctAnswer.setBackgroundColor(Color.GREEN);
+                v.setBackgroundColor(Color.RED);
+
+
+            }
         }
     }
 
@@ -356,6 +362,8 @@ public class MainActivity extends ListActivity {
 
 
         }
+
+
 
     }
 
