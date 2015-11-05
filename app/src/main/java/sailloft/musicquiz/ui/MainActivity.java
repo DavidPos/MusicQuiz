@@ -75,6 +75,7 @@ public class MainActivity extends ListActivity {
     protected MusicQuizDataSource mDataSource;
     private String playlistName;
     private String playlistIconUrl;
+    private boolean isClicked;
 
 
 
@@ -85,6 +86,7 @@ public class MainActivity extends ListActivity {
         super.onCreate(savedInstanceState);
 
         points = 0;
+        isClicked = false;
         setContentView(R.layout.activity_main);
         mDataSource = new MusicQuizDataSource(MainActivity.this);
         countDown = (TextView) findViewById(R.id.countdownTimer);
@@ -123,8 +125,8 @@ public class MainActivity extends ListActivity {
             public void onClick(View view) {
                 mArtists.clear();
                 if(listOfTracks.size() == 0) {
-                    countDown.setText("00");
-                    countDown.setTextColor(Color.BLACK);
+                    countDown.setText("--");
+                    countDown.setTextColor(Color.WHITE);
                     ListView v = getListView();
                     listView.setEnabled(true);
                     v.getChildAt(indexOfCorrect).setBackgroundColor(Color.WHITE);
@@ -145,8 +147,8 @@ public class MainActivity extends ListActivity {
 
                 }
                 else {
-                    countDown.setText("00");
-                    countDown.setTextColor(Color.BLACK);
+                    countDown.setText("--");
+                    countDown.setTextColor(Color.WHITE);
                     ListView v = getListView();
                     listView.setEnabled(true);
                     v.getChildAt(indexOfCorrect).setBackgroundColor(Color.WHITE);
@@ -160,6 +162,7 @@ public class MainActivity extends ListActivity {
                     getArtist(spotify, nextTrack.track);
 
                     okButton.setVisibility(View.INVISIBLE);
+                    isClicked = false;
 
                 }
 
@@ -211,7 +214,7 @@ public class MainActivity extends ListActivity {
 
 
                         listOfTracks = playTracks.items;
-                        Log.d("Length of Playlist", listOfTracks.size() + "" );
+
                         Collections.shuffle(listOfTracks);
 
 
@@ -230,7 +233,7 @@ public class MainActivity extends ListActivity {
                         level.setText("Remaining: " + listOfTracks.size());
 
                         int rnd = (int) (Math.random() * listOfTracks.size());
-                        Log.d("Length of Playlist", listOfTracks.size() + "" );
+
 
 
                         Track track = listOfTracks.get(rnd).track;
@@ -299,33 +302,36 @@ public class MainActivity extends ListActivity {
     protected void onListItemClick(ListView l, View v, int position, long id) {
         //on item click check to see if answer is correct. Stop playing song .
         super.onListItemClick(l, v, position, id);
-        mPlayer.stop();
-        mPlayer.reset();
-        mPlayer.release();
-        song.cancel();
-        okButton.setVisibility(View.VISIBLE);
+        if (!isClicked) {
+            isClicked = true;
+            mPlayer.stop();
+            mPlayer.reset();
+            mPlayer.release();
+            song.cancel();
+            okButton.setVisibility(View.VISIBLE);
 
 
-        Artist selectedArtist = mArtists.get(position);
-        if (selectedArtist == correctArtist) {
-            countDown.setTextColor(Color.GREEN);
-            countDown.setText("Correct!!!");
-            v.setBackgroundColor(Color.GREEN);
+            Artist selectedArtist = mArtists.get(position);
+            if (selectedArtist == correctArtist) {
+                countDown.setTextColor(Color.GREEN);
+                countDown.setText("Correct!!!");
+                v.setBackgroundColor(Color.GREEN);
 
-            points = points + timeRemaining;
-            pointsTotal.setText(points + "");
-
-
-        } else {
-            countDown.setTextColor(Color.RED);
-            countDown.setText("Wrong");
-             wrongPos = position;
-            View correctAnswer = l.getChildAt(indexOfCorrect);
-
-            correctAnswer.setBackgroundColor(Color.GREEN);
-            v.setBackgroundColor(Color.RED);
+                points = points + timeRemaining;
+                pointsTotal.setText(points + "");
 
 
+            } else {
+                countDown.setTextColor(Color.RED);
+                countDown.setText("Wrong");
+                wrongPos = position;
+                View correctAnswer = l.getChildAt(indexOfCorrect);
+
+                correctAnswer.setBackgroundColor(Color.GREEN);
+                v.setBackgroundColor(Color.RED);
+
+
+            }
         }
     }
 
@@ -344,7 +350,7 @@ public class MainActivity extends ListActivity {
         @Override
         public void onFinish() {
             //Timer finishes reveal correct answer and stop playing song
-            countDown.setText("00");
+            countDown.setText("--");
             ListView l = getListView();
             View correct = l.getChildAt(indexOfCorrect);
             correct.setBackgroundColor(Color.GREEN);
@@ -357,6 +363,8 @@ public class MainActivity extends ListActivity {
 
         }
 
+
+
     }
 
 
@@ -364,7 +372,7 @@ public class MainActivity extends ListActivity {
 
         final Track mTrack = track;
 
-        Log.d("Artist", mTrack.artists.get(0).name + "" + mTrack.preview_url);
+
 
 
 
@@ -383,9 +391,7 @@ public class MainActivity extends ListActivity {
                             public void success(Artists artists, Response response) {
                                 List<Artist> related = artists.artists;
                                 Collections.shuffle(related);
-                                Log.d("Response", response.getReason() + " " + response.getUrl());
 
-                                Log.d("Length of Related", related.size() + "");
                                 for (int i = 0; i <= 2; i++) {
                                     mArtists.add(related.get(i));
 
@@ -436,7 +442,7 @@ public class MainActivity extends ListActivity {
                                 if (mp.isPlaying()) {
 
                                     song.start();
-                                    Log.d("Media Player", "Media player is playing");
+
                                 } else {
                                     Log.d("Error", "Media Player is not playing");
                                 }

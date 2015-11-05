@@ -30,7 +30,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:textSize="20sp"
+        android:textSize="25sp"
         android:textColor="@android:color/white" />
 
     <TextView
@@ -41,7 +41,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:textSize="20sp"
+        android:textSize="25sp"
         android:textColor="@android:color/white" />
 
     <TextView
@@ -51,7 +51,7 @@
         android:id="@+id/countdownTimer"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/pointsLabel"
-        android:textSize="50sp"
+        android:textSize="65sp"
         android:textColor="@android:color/white" />
 
     <TextView
@@ -61,15 +61,15 @@
         android:id="@+id/questionLabel"
         android:layout_below="@+id/countdownTimer"
         android:layout_centerHorizontal="true"
-        android:textSize="15sp"
+        android:textSize="24sp"
         android:textColor="@android:color/white" />
 
 
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fabNext"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="350dp"
+        android:layout_height="350dp"
         android:layout_margin="35dp"
         android:clickable="true"
         android:src="@mipmap/ic_done_black_24dp"
