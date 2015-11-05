@@ -57,7 +57,7 @@ public class ArtistAdapter extends ArrayAdapter<Artist> {
                 .load(mImage.url)
                 .resize(150, 150)
                 .into(holder.artistImage);
-        holder.albumLabel.setVisibility(View.INVISIBLE);
+
 
 
         return convertView;

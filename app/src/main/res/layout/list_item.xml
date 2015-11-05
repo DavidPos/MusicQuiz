@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:text="Coldplay"
         android:id="@+id/artistLabel"
-        android:textSize="25sp"
+        android:textSize="20sp"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/artistImageView"
         android:layout_toEndOf="@+id/artistImageView"
@@ -35,10 +35,11 @@
         android:layout_height="wrap_content"
         android:text="A Rush Of Blood To The Head"
         android:id="@+id/albumLabel"
-        android:layout_below="@+id/artistLabel"
-        android:layout_toRightOf="@+id/artistImageView"
-        android:layout_toEndOf="@+id/artistImageView"
         android:paddingLeft="10dp"
         android:paddingTop="2dp"
-        android:textColor="@android:color/white" />
+        android:textColor="@android:color/white"
+        android:visibility="invisible"
+        android:layout_alignBottom="@+id/artistImageView"
+        android:layout_toRightOf="@+id/artistImageView"
+        android:layout_toEndOf="@+id/artistImageView" />
 </RelativeLayout>
