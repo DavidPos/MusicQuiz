@@ -76,6 +76,7 @@ public class MainActivity extends ListActivity {
     private String playlistName;
     private String playlistIconUrl;
     private boolean isClicked;
+    private Track track;
 
 
 
@@ -158,8 +159,8 @@ public class MainActivity extends ListActivity {
                     listOfTracks.remove(random);
                     level.setText("Remaining: " + listOfTracks.size());
 
-
-                    getArtist(spotify, nextTrack.track);
+                    track = nextTrack.track;
+                    getArtist(spotify, track);
 
                     okButton.setVisibility(View.INVISIBLE);
                     isClicked = false;
@@ -236,9 +237,10 @@ public class MainActivity extends ListActivity {
 
 
 
-                        Track track = listOfTracks.get(rnd).track;
+                        track = listOfTracks.get(rnd).track;
                         listOfTracks.remove(rnd);
                         getArtist(spotify, track);
+                        Log.i("first time artist: ", track.name );
 
 
 
@@ -266,12 +268,27 @@ public class MainActivity extends ListActivity {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        if (track != null) {
+            Log.i("onResume artist:  ", track.name);
+            getArtist(spotify, track);
+        }
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         mDataSource.close();
+        if (mPlayer != null){
+            if(mPlayer.isPlaying()){
+                mPlayer.stop();
+                mPlayer.release();
+            }
+            song.cancel();
+            mArtists.clear();
+            countDown.setText("--");
+
+        }
+
     }
 
 
